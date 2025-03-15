@@ -1,10 +1,11 @@
 diff -ru nfq.orig/Makefile nfq/Makefile
 --- nfq.orig/Makefile	2024-11-23 16:41:36.944347169 +0700
 +++ nfq/Makefile	2024-11-23 16:49:22.309396131 +0700
-@@ -1,5 +1,5 @@
+@@ -1,6 +1,6 @@
  CC ?= gcc
 -CFLAGS += -std=gnu99 -Os -flto=auto
 +CFLAGS += -std=gnu99 -Os
+ CFLAGS_SYSTEMD = -DUSE_SYSTEMD
  CFLAGS_BSD = -Wno-address-of-packed-member
  CFLAGS_CYGWIN = -Wno-address-of-packed-member -static
  LIBS_LINUX = -lnetfilter_queue -lnfnetlink -lz
