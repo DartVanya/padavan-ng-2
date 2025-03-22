@@ -104,7 +104,7 @@ _ISP_IF=$(
 );
 
 _ISP_IF6=$(
-  echo "$ISP_INTERFACE,$(ip -6 r s default | cut -d ' ' -f5)" |\
+  echo "$ISP_INTERFACE,$(ip -6 r s default | grep ':' | cut -d ' ' -f5)" |\
     tr " " "\n" | tr "," "\n" | sort -u
 );
 

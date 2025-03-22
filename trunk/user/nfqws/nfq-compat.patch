@@ -21,7 +21,7 @@ diff -ru nfq.orig/sec.c nfq/sec.c
  #include <linux/filter.h>
  // __X32_SYSCALL_BIT defined in linux/unistd.h
  #include <linux/unistd.h>
-@@ -155,6 +155,7 @@
+@@ -151,6 +151,7 @@
  	filter->jf = jf;
  	filter->k = k;
  }
@@ -29,7 +29,7 @@ diff -ru nfq.orig/sec.c nfq/sec.c
  // deny all blocked syscalls
  static bool set_seccomp(void)
  {
-@@ -177,7 +178,7 @@
+@@ -173,7 +174,7 @@
  	set_filter(&prog.filter[idx++], BPF_JMP + BPF_JEQ + BPF_K, 0, 2 + BLOCKED_SYSCALL_COUNT, ARCH_NR); // fail
  	set_filter(&prog.filter[idx++], BPF_LD + BPF_W + BPF_ABS, 0, 0, syscall_nr);
  #endif
@@ -38,7 +38,7 @@ diff -ru nfq.orig/sec.c nfq/sec.c
  /*
  	// ! THIS IS NOT WORKING BECAUSE perror() in glibc dups() stderr
  	set_filter(&prog.filter[idx++], BPF_JMP + BPF_JEQ + BPF_K, 0, 3, SYS_write); // special check for write call
-@@ -185,6 +186,7 @@
+@@ -181,6 +182,7 @@
  	set_filter(&prog.filter[idx++], BPF_JMP + BPF_JGT + BPF_K, 2 + BLOCKED_SYSCALL_COUNT, 0, 2); // 1 - stdout, 2 - stderr. greater are bad
  	set_filter(&prog.filter[idx++], BPF_LD + BPF_W + BPF_ABS, 0, 0, syscall_nr); // reload syscall_nr
  */
@@ -46,7 +46,7 @@ diff -ru nfq.orig/sec.c nfq/sec.c
  	for(i=0 ; i<BLOCKED_SYSCALL_COUNT ; i++)
  	{
  		set_filter(&prog.filter[idx++], BPF_JMP + BPF_JEQ + BPF_K, BLOCKED_SYSCALL_COUNT-i, 0, blocked_syscalls[i]);
-@@ -193,9 +195,11 @@
+@@ -189,9 +191,11 @@
  	set_filter(&prog.filter[idx++], BPF_RET + BPF_K, 0, 0, SECCOMP_RET_KILL); // fail case
  	return prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, &prog) >= 0;
  }
@@ -59,7 +59,7 @@ diff -ru nfq.orig/sec.c nfq/sec.c
  	if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0))
  	{
  		DLOG_PERROR("PR_SET_NO_NEW_PRIVS(prctl)");
-@@ -210,6 +214,7 @@
+@@ -206,6 +210,7 @@
  	}
  #endif
  	return true;
@@ -97,3 +97,40 @@ diff -ru nfq.orig/sec.h nfq/sec.h
  
  #if defined(__aarch64__)
  
+ 
+diff -ru nfq.orig/nfqws.c nfq/nfqws.c
+--- src/nfq/nfqws.c	2025-03-22 09:07:16.414035711 +0300
++++ nfq/nfqws.c	2025-03-22 16:13:47.787920654 +0300
+@@ -225,15 +225,29 @@
+ 
+ 	DLOG_CONDUP("unbinding existing nf_queue handler for AF_INET (if any)\n");
+ 	if (nfq_unbind_pf(*h, AF_INET) < 0) {
+-		DLOG_PERROR("nfq_unbind_pf()");
++		DLOG_PERROR("nfq_unbind_pf() AF_INET");
+ 		goto exiterr;
+ 	}
+ 
+ 	DLOG_CONDUP("binding nfnetlink_queue as nf_queue handler for AF_INET\n");
+ 	if (nfq_bind_pf(*h, AF_INET) < 0) {
+-		DLOG_PERROR("nfq_bind_pf()");
++		DLOG_PERROR("nfq_bind_pf() AF_INET");
+ 		goto exiterr;
+ 	}
++	else
++		DLOG_CONDUP("binding for AF_INET success\n");
++	
++	DLOG_CONDUP("unbinding existing nf_queue handler for AF_INET6 (if any)\n");
++	if (nfq_unbind_pf(*h, AF_INET6) < 0)
++		DLOG_PERROR("nfq_unbind_pf() AF_INET6");
++	
++	if (system("grep '^IPV6_ENABLED=1' /etc/storage/zapret/config") == 0) {
++		DLOG_CONDUP("binding nfnetlink_queue as nf_queue handler for AF_INET6\n");
++		if (nfq_bind_pf(*h, AF_INET6) < 0)
++			DLOG_PERROR("nfq_bind_pf() AF_INET6");
++		else
++			DLOG_CONDUP("binding for AF_INET6 success\n");
++	}
+ 
+ 	DLOG_CONDUP("binding this socket to queue '%u'\n", params.qnum);
+ 	*qh = nfq_create_queue(*h, params.qnum, &nfq_cb, &params);
+
