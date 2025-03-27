@@ -217,6 +217,7 @@ func_fill()
 	user_sswan_conf="$dir_sswan/strongswan.conf"
 	user_sswan_ipsec_conf="$dir_sswan/ipsec.conf"
 	user_sswan_secrets="$dir_sswan/ipsec.secrets"
+	user_smb_conf="$dir_storage/smb.conf"
 
 	# create crond dir
 	[ ! -d "$dir_crond" ] && mkdir -p -m 730 "$dir_crond"
@@ -655,6 +656,36 @@ EOF
 EOF
 			chmod 644 "$user_sswan_secrets"
 		fi
+	fi
+# create user smb.conf file
+	if [ -x "/sbin/smbd" ]; then
+		cat > "$user_smb_conf" <<EOF
+# Custom user conf file for Samba server
+# Please add needed params only!
+
+#[global]
+### Bind to 0.0.0.0 and :: instead of interfaces only
+# bind interfaces only = no
+
+### Limit minimal protocol version to 2
+# min protocol = smb2
+
+### Allows symbolic links following
+# follow symlinks = yes
+# wide links = yes
+
+
+### Share example: export router storage
+# [storage]
+# comment = storage
+# path = /etc/storage
+# writeable = no
+# valid users = admin
+# invalid users = 
+# read list = admin
+# write list = admin
+EOF
+		chmod 644 "$user_smb_conf"
 	fi
 }
 
