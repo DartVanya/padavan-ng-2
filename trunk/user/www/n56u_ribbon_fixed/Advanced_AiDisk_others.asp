@@ -240,6 +240,7 @@ function change_smb_enabled(){
 	showhide_div('row_smb_mode', v);
 	showhide_div('row_smb_lmb', v);
 	showhide_div('row_smb_fp', v);
+	showhide_div('row_smb_conf', v);
 }
 
 var id_timeout_btn_gen;
@@ -597,6 +598,14 @@ function done_validating(action){
                                                     <option value="0" <% nvram_match_x("", "st_samba_fp", "0", "selected"); %>><#checkbox_No#></option>
                                                     <option value="1" <% nvram_match_x("", "st_samba_fp", "1", "selected"); %>>TCP ports 445, 139 (*)</option>
                                                 </select>
+                                            </td>
+                                        </tr>
+										<tr id="row_smb_conf">
+                                            <td colspan="2">
+                                                <a href="javascript:spoiler_toggle('spoiler_conf')"><span><#CustomConf#> "smb.conf"</span></a>
+                                                <div id="spoiler_conf" style="display:none;">
+                                                    <textarea rows="16" wrap="off" spellcheck="false" maxlength="16384" class="span12" name="smbd.smb.conf" style="resize:none; font-family:'Courier New'; font-size:12px;"><% nvram_dump("smbd.smb.conf",""); %></textarea>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>
