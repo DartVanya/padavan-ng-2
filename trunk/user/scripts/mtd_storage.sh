@@ -657,13 +657,14 @@ EOF
 			chmod 644 "$user_sswan_secrets"
 		fi
 	fi
-# create user smb.conf file
+	# create user smb.conf file
 	if [ -x "/sbin/smbd" ]; then
-		cat > "$user_smb_conf" <<EOF
+		if [ ! -f "$user_smb_conf" ]; then
+			cat > "$user_smb_conf" <<EOF
 # Custom user conf file for Samba server
 # Please add needed params only!
 
-#[global]
+# [global]
 ### Bind to 0.0.0.0 and :: instead of interfaces only
 # bind interfaces only = no
 
@@ -675,17 +676,23 @@ EOF
 # wide links = yes
 
 
-### Share example: export router storage
+### Share examples
+### Hide opt directory
+# [opt]
+# browseable = no
+
+### Export router storage
 # [storage]
 # comment = storage
 # path = /etc/storage
-# writeable = no
+# read only = no
 # valid users = admin
-# invalid users = 
 # read list = admin
 # write list = admin
+
 EOF
-		chmod 644 "$user_smb_conf"
+			chmod 644 "$user_smb_conf"
+		fi
 	fi
 }
 
