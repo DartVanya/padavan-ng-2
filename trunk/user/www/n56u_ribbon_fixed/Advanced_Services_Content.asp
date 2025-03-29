@@ -921,7 +921,7 @@ function change_crond_enabled(){
                                             <td colspan="2">
                                                 <a href="javascript:spoiler_toggle('zapret.post_script.sh')"><span><#CustomConf#> "post_script.sh"</span></a>
                                                 <div id="zapret.post_script.sh" style="display:none;">
-                                                    <textarea rows="16" wrap="off" spellcheck="false" maxlength="8192" class="span12" name="zapret.post_script.sh" style="resize:none; font-family:'Courier New'; font-size:12px;"><% nvram_dump("zapretc.post_script.sh",""); %></textarea>
+                                                    <textarea rows="16" wrap="off" spellcheck="false" maxlength="8192" class="span12" name="zapretc.post_script.sh" style="resize:none; font-family:'Courier New'; font-size:12px;"><% nvram_dump("zapretc.post_script.sh",""); %></textarea>
                                                 </div>
                                             </td>
                                         </tr>
