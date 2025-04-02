@@ -128,4 +128,7 @@ else
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_WINS),y)
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/bin/nmbd /sbin/nmbd
 endif
+ifeq ($(CONFIG_FIRMWARE_INCLUDE_TESTPARM),y)
+	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/utils/testparm /sbin/testparm
+endif
 endif
