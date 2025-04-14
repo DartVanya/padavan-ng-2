@@ -117,7 +117,7 @@ distclean: clean
 	@find $(SRC_NAME) -name config.cache | xargs rm -f
 
 romfs: romfs_generic romfs_testparm
-	
+
 romfs_generic:
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_SMBD),y)
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/bin/samba_multicall /sbin/smbmulti

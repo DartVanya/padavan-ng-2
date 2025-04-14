@@ -888,13 +888,13 @@ function change_crond_enabled(){
                                                         </tr>
                                                         <tr height="100%">
                                                             <td style="border:0px; width: 33%; padding: 0px; padding-right: 5px; vertical-align: top;">
-                                                                <textarea rows="16" wrap="off" spellcheck="false" maxlength="1073741824" class="span12" name="zapretc.user.list" style="height: 100%; margin-bottom: 0px; resize:vertical; font-family:'Courier New'; font-size:12px;"><% nvram_dump("zapretc.user.list",""); %></textarea>
+                                                                <textarea rows="16" wrap="off" spellcheck="false" maxlength="8192" class="span12" name="zapretc.user.list" style="height: 100%; margin-bottom: 0px; resize:vertical; font-family:'Courier New'; font-size:12px;"><% nvram_dump("zapretc.user.list",""); %></textarea>
                                                             </td>
                                                             <td style="border:0px; width: 33%; padding: 0px; padding-left: 3px; padding-right: 3px; vertical-align: top;">
-                                                                <textarea rows="16" wrap="off" spellcheck="false" maxlength="65536" class="span12" name="zapretc.auto.list" style="height: 100%; margin-bottom: 0px; resize:vertical; font-family:'Courier New'; font-size:12px;"><% nvram_dump("zapretc.auto.list",""); %></textarea>
+                                                                <textarea rows="16" wrap="off" spellcheck="false" maxlength="8192" class="span12" name="zapretc.auto.list" style="height: 100%; margin-bottom: 0px; resize:vertical; font-family:'Courier New'; font-size:12px;"><% nvram_dump("zapretc.auto.list",""); %></textarea>
                                                             </td>
                                                             <td style="border:0px; width: 33%; padding: 0px; padding-left: 5px; vertical-align: top;">
-                                                                <textarea rows="16" wrap="off" spellcheck="false" maxlength="65536" class="span12" name="zapretc.exclude.list" style="height: 100%; margin-bottom: 0px; resize:vertical; font-family:'Courier New'; font-size:12px;"><% nvram_dump("zapretc.exclude.list",""); %></textarea>
+                                                                <textarea rows="16" wrap="off" spellcheck="false" maxlength="8192" class="span12" name="zapretc.exclude.list" style="height: 100%; margin-bottom: 0px; resize:vertical; font-family:'Courier New'; font-size:12px;"><% nvram_dump("zapretc.exclude.list",""); %></textarea>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -917,7 +917,7 @@ function change_crond_enabled(){
                                                 </div>
                                             </td>
                                         </tr>
-										<tr id="row_zapret_script" style="display:none">
+                                        <tr id="row_zapret_script" style="display:none">
                                             <td colspan="2">
                                                 <a href="javascript:spoiler_toggle('zapret.post_script.sh')"><span><#CustomConf#> "post_script.sh"</span></a>
                                                 <div id="zapret.post_script.sh" style="display:none;">

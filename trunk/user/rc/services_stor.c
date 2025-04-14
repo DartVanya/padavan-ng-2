@@ -559,9 +559,9 @@ void run_samba(void)
 	else {
 		p_workgroup = nvram_safe_get("st_samba_workgroup");
 		if (strlen(p_workgroup) > 0)
-			eval("/sbin/wsdd2", "-d", "-w", "-i", "br0", "-G", p_workgroup);
-		else
-			eval("/sbin/wsdd2", "-d", "-w", "-i", "br0");
+ 			eval("/sbin/wsdd2", "-d", "-w", "-i", "br0", "-G", p_workgroup);
+ 		else
+ 			eval("/sbin/wsdd2", "-d", "-w", "-i", "br0");
 	}
 
 	if (pids("wsdd2"))

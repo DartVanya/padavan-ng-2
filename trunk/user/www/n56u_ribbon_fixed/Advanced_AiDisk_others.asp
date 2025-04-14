@@ -600,7 +600,7 @@ function done_validating(action){
                                                 </select>
                                             </td>
                                         </tr>
-										<tr id="row_smb_conf">
+                                        <tr id="row_smb_conf">
                                             <td colspan="2">
                                                 <a href="javascript:spoiler_toggle('spoiler_conf')"><span><#CustomConf#> "smb.conf"</span></a>
                                                 <div id="spoiler_conf" style="display:none;">
@@ -630,8 +630,8 @@ function done_validating(action){
                                                 </div>
                                             </td>
                                         </tr>
-										<tr id="row_ftp_ssl_mode">
-										    <th>
+                                        <tr id="row_ftp_ssl_mode">
+                                            <th>
                                                 <a class="help_tooltip" href="javascript:void(0);" onmouseover="openTooltip(this,17, 4);"><#enableFTP_SSL#></a>
                                             </th>
                                             <td>

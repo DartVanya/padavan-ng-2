@@ -948,7 +948,7 @@ validate_asp_apply(webs_t wp, int sid)
 					restart_needed_bits |= event_mask;
 			}
 #endif
-#if defined(APP_SMB)
+#if defined(APP_SMBD)
 			else if (!strncmp(v->name, "smbd.", 5)) {
 				if (write_textarea_to_file(value, STORAGE_SCRIPTS_DIR, file_name-3))
 					restart_needed_bits |= event_mask;
