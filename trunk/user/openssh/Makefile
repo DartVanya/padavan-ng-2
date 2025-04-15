@@ -63,6 +63,7 @@ clean:
 	rm -f config_done
 
 romfs:
+	mkdir -p $(INSTALLDIR)/usr/libexec
 ifeq ($(CONFIG_FIRMWARE_INCLUDE_OPENSSH),y)
 	mkdir -p $(INSTALLDIR)/etc_ro/ssh
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/moduli /etc_ro/ssh/moduli
@@ -74,5 +75,4 @@ ifeq ($(CONFIG_FIRMWARE_INCLUDE_OPENSSH),y)
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/sshd /usr/sbin/sshd
 	$(ROMFSINST) -p +x /usr/bin/sshd.sh
 endif
-	mkdir -p $(INSTALLDIR)/usr/libexec
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/sftp-server /usr/libexec/sftp-server
