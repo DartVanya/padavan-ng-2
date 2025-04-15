@@ -1,4 +1,4 @@
-SRC_NAME=openssh-9.7p1
+SRC_NAME=openssh-9.9p2
 SRC_URL=https://mirror.yandex.ru/pub/OpenBSD/OpenSSH/portable/$(SRC_NAME).tar.gz
 
 CFLAGS += -ffunction-sections -fdata-sections
@@ -67,6 +67,7 @@ ifeq ($(CONFIG_FIRMWARE_INCLUDE_OPENSSH),y)
 	mkdir -p $(INSTALLDIR)/etc_ro/ssh
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/moduli /etc_ro/ssh/moduli
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/libssh.so /lib/libssh.so
+	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/sshd-session /usr/libexec/sshd-session
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/scp /usr/bin/scp
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/ssh /usr/bin/ssh
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/ssh-keygen /usr/bin/ssh-keygen
