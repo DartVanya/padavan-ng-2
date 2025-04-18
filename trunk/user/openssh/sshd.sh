@@ -136,10 +136,10 @@ func_start()
 		key_passwordauth="-o PasswordAuthentication=no"
 	fi
 
-        gateway_ports=`nvram get sshd_enable_gp`
-        if [ "$gateway_ports" = "1" ]; then
-                key_gatewayports="-o GatewayPorts=yes"
-        fi
+	gateway_ports=`nvram get sshd_enable_gp`
+	if [ "$gateway_ports" = "1" ]; then
+		key_gatewayports="-o GatewayPorts=yes"
+	fi
 
 	/usr/sbin/sshd $key_passwordauth $key_gatewayports
 }
